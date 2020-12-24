@@ -38,19 +38,29 @@ def convert_fire_stations_to_utm(fire_stations, zone_number=None, zone_letter=No
     return fire_stations
 
 
-def main(parameters_file=None, arguments=None):
-    pars = parameter_reader(parameters_file)
-    pars = add_datetime_to_pars(pars)
+def get_points_from_roads(pars, arguments):
     roads = read_list_of_geospatial_files(pars.get("road_files"))
     roads = strip_roads(roads)
     roads, zone_number, zone_letter = convert_roads_to_utm(roads, pars.get("quick_utm_convert", True))
     roads = strip_utm_data(roads)
     roads = ensure_road_point_distance(roads, pars.get("scanning_radius"), arguments.utm_mp)
     points = simplify_points(roads, pars.get("round_pts_to", 1))
+    return points, zone_number, zone_letter
+
+
+def get_storm_data(pars, zone_number, zone_letter):
     sbws, lsrs = read_storm_data(pars.get("sbws"), pars.get("lsrs"))
     sbws, lsrs = get_relevant_storm_data(sbws, lsrs, pars)
     sbws, lsrs = convert_storm_data_to_utm(sbws, lsrs, zone_number, zone_letter)
     sbws, lsrs = get_overlapping_data(sbws, lsrs)
+    return sbws, lsrs
+
+
+def main(parameters_file=None, arguments=None):
+    pars = parameter_reader(parameters_file)
+    pars = add_datetime_to_pars(pars)
+    points, zone_number, zone_letter = get_points_from_roads(pars, arguments)
+    sbws, lsrs = get_storm_data(pars, zone_number, zone_letter)
     fire_stations = read_list_of_geospatial_files(pars.get("fire_stations"))
     fire_stations = convert_fire_stations_to_utm(fire_stations, zone_number, zone_letter)
     wpt_method = pars.get("wpt_method", "rectangular")
