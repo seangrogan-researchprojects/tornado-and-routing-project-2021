@@ -1,0 +1,29 @@
+{
+  "name": "moore-newcastle 2013",
+  "mp": true,
+  "wpt_method": ["rec", "hex","mean shift", "random_steiner_zone", "random_steiner_zone_no_improve", "steiner"],
+  "road_files": [
+    "D:/Maps/Data/UnitedStates/Oklahoma/roads/highways/ODOT_Highways.shp",
+    "D:/Maps/Data/UnitedStates/Oklahoma/roads/local/odot_local_roads.shp",
+    "D:/Maps/Data/UnitedStates/Oklahoma/roads/major_roadways/odot_roadways.dbf"
+  ],
+  "sbws": [
+    "D:/Maps/DATA-FROM-POLY/usa/disasters/Moore_Tornado_2013/wwa_201305201700_201305210900/wwa_201305201700_201305210900.shp"
+  ],
+  "lsrs": [
+    "D:/Maps/DATA-FROM-POLY/usa/disasters/Moore_Tornado_2013/lsr_201305201700_201305210900/lsr_201305201700_201305210900.shp"
+  ],
+  "fire_stations": [
+    "D:/Maps/Data/UnitedStates/Oklahoma/fire_stations/ok_firestations.csv"
+  ],
+  "scanning_radius": 300,
+  "round_pts_to": 1,
+    "time_interval_start": {
+    "time": 201305201900,
+    "zone": "utc"
+  },
+  "time_interval_end": {
+    "time": 201305201540,
+    "zone": "cdt"
+  }
+}

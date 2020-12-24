@@ -1,0 +1,6 @@
+{
+  "info": "tabu seach parameters",
+  "max_iter" : 10000,
+  "iter_no_improve": 500,
+  "time_lim": 7200
+}
