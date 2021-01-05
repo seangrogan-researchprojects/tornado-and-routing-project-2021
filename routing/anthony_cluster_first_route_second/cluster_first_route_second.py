@@ -39,10 +39,10 @@ def _improve_solution_loop(solution, fire_stations):
     while True:
         k += 1
         print(f"== WORKING ON ITER {k} ==")
-        map_plotter_utm(f"Solution len {len(solution)}", solution=solution)
+        # map_plotter_utm(f"Solution len {len(solution)}", solution=solution)
         new_solution = _improve_solution(solution, fire_stations)
         if len(new_solution) >= len(solution):
-            map_plotter_utm(f"Solution len final {len(solution)}", solution=solution)
+            # map_plotter_utm(f"Solution len final {len(solution)}", solution=solution)
             return solution
         solution = {k: v.copy() for k, v in new_solution.items()}
 

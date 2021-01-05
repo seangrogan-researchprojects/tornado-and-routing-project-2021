@@ -21,7 +21,7 @@ def anthony_cplex(fire_stations, waypoints, n_depots, scanning_r, init_solution=
     log_file = f'D:/project-anthony/output/cplex/cplex_{name}.log'
     mdl = Model(name, log_output=log_file)
     x, y, z, t_bar, t_bar_s = _build_variables(mdl, W, S, E)
-    #_ObjFn(mdl, t_bar,t=t,x=x)
+    # _ObjFn(mdl, t_bar,t=t,x=x)
     _ObjFn(mdl, t_bar)
     _SetVisitedConstraints(mdl, V, W, S, x)
     _SetFlowConstraints(mdl, W, S, x)
@@ -35,7 +35,7 @@ def anthony_cplex(fire_stations, waypoints, n_depots, scanning_r, init_solution=
     print('Solving')
     mdl.context.cplex_parameters.mip.tolerances.absmipgap = 0.99
     mdl.context.cplex_parameters.mip.tolerances.mipgap = 0.99
-    mdl.context.cplex_parameters.emphasis.mip = 1 #CPX_MIPEMPHASIS_FEASIBILITY
+    mdl.context.cplex_parameters.emphasis.mip = 1  # CPX_MIPEMPHASIS_FEASIBILITY
     mdl.context.cplex_parameters.mip.strategy.file = 3
     mdl.context.cplex_parameters.mip.strategy.nodeselect = 2
     solution = mdl.solve(log_output=True)
@@ -125,7 +125,7 @@ def _SetEnduranceConstraint(mdl, E, t, W, S, x):
         )
 
 
-def _SetSubTourConstraints(mdl, M, t, W, S, z, x, *,indicator=False):
+def _SetSubTourConstraints(mdl, M, t, W, S, z, x, *, indicator=False):
     print("\tMaking Subtour Constraints")
     # c7
     for s in S:
@@ -348,8 +348,8 @@ def _build_sets(waypoints, fire_stations):
     return W, S, V
 
 
-def _setup(initial_solution, name, fire_stations, waypoints, n_depots, scanning_radius):
-    if initial_solution is None:
+def _setup(initial_solution, name, fire_stations, waypoints, n_depots, scanning_radius, warm_start=True):
+    if initial_solution is None and warm_start:
         logging.debug("No Solution passed, running CFRS")
         initial_solution = cfrs.cluster_first_route_second(fire_stations, waypoints, n_depots, scanning_radius)
     if name is None:

@@ -1,5 +1,5 @@
 {
-  "name": "moore-newcastle 2013",
+  "name": "TESTING moore-newcastle 2013",
   "mp": true,
   "wpt_method": ["rec", "hex","mean shift", "random_steiner_zone", "random_steiner_zone_no_improve", "steiner"],
   "road_files": [
@@ -16,7 +16,8 @@
   "fire_stations": [
     "D:/Maps/Data/UnitedStates/Oklahoma/fire_stations/ok_firestations.csv"
   ],
-  "scanning_radius": 10,
+  "scanning_radius": 100,
+  "sbw_size": 1000,
   "n_depots" : 2,
   "round_pts_to": 1,
     "time_interval_start": {

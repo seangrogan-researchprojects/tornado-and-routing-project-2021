@@ -4,6 +4,7 @@ from collections import defaultdict
 from time import time
 import pandas as pd
 import utm
+from grogies_toolbox.my_logging_setup import setup_logging
 from numpy import average
 
 from ensure_road_point_distances import ensure_road_point_distance
@@ -101,7 +102,7 @@ def create_waypoints(points, wpt_method, scanning_radius, sbws, pars, args):
     return (None, None),
 
 
-def waypoint_generation_tests(pars, points, sbws, tests=None, args=None, fire_stations=None, timer=None):
+def waypoint_generation_tests(pars, points, sbws, tests=None, args=None, fire_stations=None, timer=None, solver='cfrs'):
     print('Executing Waypoint Tests')
     logging.info('Executing Waypoint Tests')
     name = pars.get('name', "anthony")
@@ -139,7 +140,7 @@ def waypoint_generation_tests(pars, points, sbws, tests=None, args=None, fire_st
     for method in waypoint_methods:
         wpts = waypoints[method]
         timer.apply("BeginRouting", method)
-        solution = anthony_solver(pars, args, fire_stations, wpts, solver='cfrs')
+        solution = anthony_solver(pars, args, fire_stations, wpts, solver=solver)
         timer.apply("Routing", method)
         calc_distances(solution, outfile=f"./output/distances/distances_{name}_{method}.json", incl_time=True)
         data = dict()
@@ -183,4 +184,5 @@ class GrogiesTimer:
 
 if __name__ == '__main__':
     args = get_args()
+    setup_logging()
     main(args.par, args)
